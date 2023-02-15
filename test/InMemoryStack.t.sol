@@ -81,7 +81,7 @@ contract InMemoryStackTest is Test {
     
     function testBenchmarkDynamicVsStatic() public view {
         bytes memory data_ = abi.encode("dasdasdasdasdasdasdadasdasdasdadasdadadasdadada1sd");
-        uint256 numberOfElements_ = 10;
+        uint256 numberOfElements_ = 100;
         uint256 staticStackSize_ = 1000;
 
         uint256 initialGas_ = gasleft();
