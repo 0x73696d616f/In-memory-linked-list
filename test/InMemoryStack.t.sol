@@ -17,11 +17,11 @@ contract InMemoryStackTest is Test {
 
     function testPush(SampleElementType[] memory sampleElementTypes_) public {
         Stack memory stack_ = InMemoryStack.createEmptyStack();
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             stack_.push(abi.encode(sampleElementTypes_[i_]));
         }
 
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             Entry memory currEntry_ = stack_.getEntry(sampleElementTypes_.length - i_ - 1);
             assertEq(currEntry_.value, abi.encode(sampleElementTypes_[i_]));
         }
@@ -31,11 +31,11 @@ contract InMemoryStackTest is Test {
 
     function testPop(SampleElementType[] memory sampleElementTypes_) public {
         Stack memory stack_ = InMemoryStack.createEmptyStack();
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             stack_.push(abi.encode(sampleElementTypes_[i_]));
         }
 
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             assertEq(stack_.pop(), abi.encode(sampleElementTypes_[sampleElementTypes_.length - i_ - 1]));
             assertEq(stack_.length, sampleElementTypes_.length - i_ - 1);
         }
@@ -50,15 +50,15 @@ contract InMemoryStackTest is Test {
     /// @notice Tests the set function. Pushes a bunch of values to the stack, thens sets them in reverse order.
     function testSet(SampleElementType[] memory sampleElementTypes_) public {
         Stack memory stack_ = InMemoryStack.createEmptyStack();
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             stack_.push(abi.encode(sampleElementTypes_[i_]));
         }
 
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             stack_.set(i_, abi.encode(sampleElementTypes_[i_]));
         }
 
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             Entry memory currEntry_ = stack_.getEntry(i_);
             assertEq(currEntry_.value, abi.encode(sampleElementTypes_[i_]));
         }
@@ -72,13 +72,13 @@ contract InMemoryStackTest is Test {
 
     function testPushPop(SampleElementType[] memory sampleElementTypes_) public {
         Stack memory stack_ = InMemoryStack.createEmptyStack();
-        for (uint i_ = 0; i_ < sampleElementTypes_.length; i_++) {
+        for (uint256 i_ = 0; i_ < sampleElementTypes_.length; i_++) {
             stack_.push(abi.encode(sampleElementTypes_[i_]));
             assertEq(stack_.pop(), abi.encode(sampleElementTypes_[i_]));
             assertEq(stack_.length, 0);
         }
     }
-    
+
     function testBenchmarkDynamicVsStatic() public view {
         bytes memory data_ = abi.encode("dasdasdasdasdasdasdadasdasdasdadasdadadasdadada1sd");
         uint256 numberOfElements_ = 100;
@@ -86,7 +86,7 @@ contract InMemoryStackTest is Test {
 
         uint256 initialGas_ = gasleft();
         Stack memory stack_ = InMemoryStack.createEmptyStack();
-        for (uint i_ = 0; i_ < numberOfElements_; i_++) {
+        for (uint256 i_ = 0; i_ < numberOfElements_; i_++) {
             stack_.push(data_);
         }
         uint256 dynamicStackCost_ = initialGas_ - gasleft();
@@ -95,7 +95,7 @@ contract InMemoryStackTest is Test {
 
         initialGas_ = gasleft();
         bytes[] memory staticStack_ = new bytes[](staticStackSize_);
-        for (uint i_ = 0; i_ < numberOfElements_; i_++) {
+        for (uint256 i_ = 0; i_ < numberOfElements_; i_++) {
             staticStack_[i_] = data_;
         }
         uint256 staticStackCost_ = initialGas_ - gasleft();
